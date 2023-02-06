@@ -1,4 +1,6 @@
 import PlacesList from "@/components/places/PlacesList";
+import { Place } from "@/components/places/PlacesList";
+import { MongoClient } from "mongodb";
 
 const DUMMY_PLACES = [
   {
@@ -19,8 +21,31 @@ const DUMMY_PLACES = [
   },
 ];
 
-function HomePage() {
-  return <PlacesList places={DUMMY_PLACES} />;
+function HomePage({ places }: { places: Place[] }) {
+  return <PlacesList places={places} />;
+}
+
+export async function getStaticProps() {
+  
+  const client = await MongoClient.connect(
+    "mongodb+srv://victoria:Panda639244@cluster0.u1lrzeg.mongodb.net/krakowPlaces?retryWrites=true&w=majority"
+  );
+  const db = client.db();
+  const placesCollection = db.collection("krakowplaces");
+  const placesData = await placesCollection.find().toArray();
+  
+    client.close();
+  
+  return {
+    props: {
+      places: placesData.map(entry => ({
+        id: entry._id.toString(),
+        title: entry.title,
+        image: entry.image
+      })),
+    },
+    revalidate: 100,
+  };
 }
 
 export default HomePage;

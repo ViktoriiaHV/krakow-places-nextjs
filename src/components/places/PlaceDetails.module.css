@@ -1,0 +1,12 @@
+.details {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 2rem;
+}
+
+.details img {
+    width: 100%;
+}

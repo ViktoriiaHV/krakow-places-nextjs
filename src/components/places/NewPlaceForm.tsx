@@ -1,26 +1,26 @@
-import { useState } from 'react';
+import { SyntheticEvent, useState } from "react";
 
-import Card from '../ui/Card';
-import classes from './NewPlaceForm.module.css';
+import Card from "../ui/Card";
+import classes from "./NewPlaceForm.module.css";
 
-type NewPlaceFormProps = {
-    onAddPlace: any
+interface PlaceData {
+  title: string;
+  image: string;
+  address: string;
+  description: string;
 }
 
-type PlaceData = {
-    title: string,
-    image: string,
-    address: string,
-    description: string,
+interface NewPlaceFormProps {
+  onAddPlace: (place: PlaceData) => void;
 }
 
-function NewPlaceForm(props: NewPlaceFormProps) {
-  const [titleInput, setTitleInput] = useState('');
-  const [imageInput, setImageInput] = useState('');
-  const [addressInput, setAddressInput] = useState('');
-  const [descriptionInput, setDescriptionInput] = useState('');
+function NewPlaceForm({ onAddPlace }: NewPlaceFormProps) {
+  const [titleInput, setTitleInput] = useState("");
+  const [imageInput, setImageInput] = useState("");
+  const [addressInput, setAddressInput] = useState("");
+  const [descriptionInput, setDescriptionInput] = useState("");
 
-  function submitHandler(event: any) {
+  function submitHandler(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const placeData = {
@@ -30,28 +30,46 @@ function NewPlaceForm(props: NewPlaceFormProps) {
       description: descriptionInput,
     };
 
-    props.onAddMeetup(placeData);
+    onAddPlace(placeData);
   }
 
   return (
     <Card>
       <form className={classes.form} onSubmit={submitHandler}>
         <div className={classes.control}>
-          <label htmlFor='title'>Place Name</label>
-          <input type='text' required id='title' value={titleInput} onChange={(e) => setTitleInput(e.target.value)} />
+          <label htmlFor="title">Place Name</label>
+          <input
+            type="text"
+            required
+            id="title"
+            value={titleInput}
+            onChange={(e) => setTitleInput(e.target.value)}
+          />
         </div>
         <div className={classes.control}>
-          <label htmlFor='image'>Place Photo</label>
-          <input type='url' required id='image' value={imageInput} onChange={(e) => setImageInput(e.target.value)} />
+          <label htmlFor="image">Place Photo</label>
+          <input
+            type="url"
+            required
+            id="image"
+            value={imageInput}
+            onChange={(e) => setImageInput(e.target.value)}
+          />
         </div>
         <div className={classes.control}>
-          <label htmlFor='address'>Address</label>
-          <input type='text' required id='address' value={addressInput} onChange={(e) => setAddressInput(e.target.value)} />
+          <label htmlFor="address">Address</label>
+          <input
+            type="text"
+            required
+            id="address"
+            value={addressInput}
+            onChange={(e) => setAddressInput(e.target.value)}
+          />
         </div>
         <div className={classes.control}>
-          <label htmlFor='description'>Description</label>
+          <label htmlFor="description">Description</label>
           <textarea
-            id='description'
+            id="description"
             required
             rows={5}
             value={descriptionInput}

@@ -1,12 +1,12 @@
 import PlaceItem from "./PlaceItem";
 import classes from "./PlacesList.module.css";
 
-type PlacesListProps = {
-  places: Array<Place>;
+interface PlacesListProps  {
+  places: Place[];
 };
 
-export type Place = {
-  id: string;
+export interface Place {
+  id?: string;
   image?: string;
   title: string;
   address?: string;
