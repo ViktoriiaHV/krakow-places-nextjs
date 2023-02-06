@@ -7,13 +7,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const data = req.body;
 
     const client = await MongoClient.connect(
-      "mongodb+srv://victoria:Panda639244@cluster0.u1lrzeg.mongodb.net/krakowPlaces?retryWrites=true&w=majority"
+      "mongodb+srv://victoria:Test12345@cluster0.u1lrzeg.mongodb.net/krakowPlaces?retryWrites=true&w=majority"
     );
     const db = client.db();
 
     const placesCollection = db.collection("krakowplaces");
     const result = await placesCollection.insertOne(data);
-    console.log(result);
 
     client.close();
 

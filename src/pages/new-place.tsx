@@ -1,6 +1,9 @@
+import React from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+
 import NewPlaceForm from "@/components/places/NewPlaceForm";
 import { Place } from "@/components/places/PlacesList";
-import { useRouter } from "next/router";
 
 function NewPlace() {
   const router = useRouter();
@@ -17,10 +20,18 @@ function NewPlace() {
     const data = await response.json();
     console.log(data);
 
-    router.push('/')
+    router.push("/");
   };
 
-  return <NewPlaceForm onAddPlace={addNewPlace} />;
+  return (
+    <React.Fragment>
+      <Head>
+        <title>Add a new place</title>
+        <meta name="description" content="Add a new place on Krakow's map" />
+      </Head>
+      <NewPlaceForm onAddPlace={addNewPlace} />
+    </React.Fragment>
+  );
 }
 
 export default NewPlace;
